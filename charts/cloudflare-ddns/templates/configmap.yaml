@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Values.configMap.name | default "cloudflare-ddns-config" }}
-  namespace: {{ .Values.namespace | default "cloudflare-ddns" }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "cloudflare-ddns.labels" . | nindent 4 }}
 data:

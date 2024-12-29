@@ -2,9 +2,6 @@
 nameOverride: ""
 fullnameOverride: ""
 
-# Namespace to deploy the resources
-namespace: "cloudflare-ddns"
-
 image:
   repository: favonia/cloudflare-ddns
   tag: latest

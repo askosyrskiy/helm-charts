@@ -36,7 +36,6 @@ The following table lists the configurable parameters of the chart and their def
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `namespace` | Namespace to deploy to | `cloudflare-ddns` |
 | `image.repository` | Image repository | `favonia/cloudflare-ddns` |
 | `image.tag` | Image tag | `latest` |
 | `image.pullPolicy` | Image pull policy | `IfNotPresent` |

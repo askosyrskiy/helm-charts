@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.name | default "cloudflare-ddns" }}
-  namespace: {{ .Values.namespace | default "cloudflare-ddns" }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "cloudflare-ddns.labels" . | nindent 4 }}
   {{- with .Values.podAnnotations }}
