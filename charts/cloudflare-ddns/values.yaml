@@ -1,0 +1,76 @@
+# Default values for cloudflare-ddns
+nameOverride: ""
+fullnameOverride: ""
+
+# Namespace to deploy the resources
+namespace: "cloudflare-ddns"
+
+image:
+  repository: favonia/cloudflare-ddns
+  tag: latest
+  pullPolicy: IfNotPresent
+
+# Pod Security Context
+# https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 10000
+  runAsGroup: 10000
+  fsGroup: 10000
+  seccompProfile:
+    type: RuntimeDefault
+  supplementalGroups: []
+
+# Container Security Context
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 10000
+  runAsGroup: 10000
+  capabilities:
+    drop:
+      - ALL
+    add: []
+  seccompProfile:
+    type: RuntimeDefault
+
+# Resource limits and requests
+resources:
+  limits:
+    memory: "50Mi"
+    cpu: "250m"
+  requests:
+    memory: "30Mi"
+    cpu: "100m"
+
+# Cloudflare configuration
+cloudflareApiToken: "" # Required: Your Cloudflare API token
+domains: "" # Required: Domain(s) to update
+proxied: "true"
+ip6Provider: "none"
+
+# ConfigMap configuration
+configMap:
+  name: "cloudflare-ddns-config"
+  hostKey: "HOST"
+  proxiedKey: "PROXIED"
+  ip6ProviderKey: "IP6_PROVIDER"
+
+# Secret configuration
+secret:
+  name: "cloudflare-api-token"
+  key: "api-token"
+  # Enable automatic rotation of the API token
+  rotation:
+    enabled: false
+    # Rotation interval in days
+    intervalDays: 30
+
+# Additional pod annotations for security scanning and monitoring
+podAnnotations: {}
+  # Container image scan results
+  # security.cloud.google.com/scan-status: "Scanned"
+  # prometheus.io/scrape: "true"
+  # prometheus.io/port: "metrics"

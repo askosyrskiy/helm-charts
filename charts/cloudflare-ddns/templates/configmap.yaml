@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configMap.name | default "cloudflare-ddns-config" }}
+  namespace: {{ .Values.namespace | default "cloudflare-ddns" }}
+  labels:
+    {{- include "cloudflare-ddns.labels" . | nindent 4 }}
+data:
+  {{ .Values.configMap.hostKey | default "HOST" }}: {{ .Values.domains | quote }}
+  {{ .Values.configMap.proxiedKey | default "PROXIED" }}: {{ .Values.proxied | default "true" | quote }}
+  {{ .Values.configMap.ip6ProviderKey | default "IP6_PROVIDER" }}: {{ .Values.ip6Provider | default "none" | quote }}

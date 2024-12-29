@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name | default "cloudflare-ddns" }}
+  namespace: {{ .Values.namespace | default "cloudflare-ddns" }}
+  labels:
+    {{- include "cloudflare-ddns.labels" . | nindent 4 }}
+  {{- with .Values.podAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "cloudflare-ddns.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "cloudflare-ddns.selectorLabels" . | nindent 8 }}
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+      - name: {{ .Values.name | default "cloudflare-ddns" }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
+        securityContext:
+          {{- toYaml .Values.containerSecurityContext | nindent 12 }}
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+        env:
+        - name: CLOUDFLARE_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name | default "cloudflare-api-token" }}
+              key: {{ .Values.secret.key | default "api-token" }}
+        - name: DOMAINS
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configMap.name | default "cloudflare-ddns-config" }}
+              key: {{ .Values.configMap.hostKey | default "HOST" }}
+        - name: PROXIED
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configMap.name | default "cloudflare-ddns-config" }}
+              key: {{ .Values.configMap.proxiedKey | default "PROXIED" }}
+        - name: IP6_PROVIDER
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configMap.name | default "cloudflare-ddns-config" }}
+              key: {{ .Values.configMap.ip6ProviderKey | default "IP6_PROVIDER" }}
