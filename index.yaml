@@ -1,0 +1,21 @@
+apiVersion: v1
+entries:
+  cloudflare-ddns:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-12-29T03:50:34.67226149Z"
+    description: A Helm chart for Cloudflare DDNS service
+    digest: 580f28b7ff472c2faa8fb6c9faaaab8c658ee935b41b7676a00c2f31f773c295
+    home: https://github.com/askosyrskiy/cloudflare-ddns-helm
+    keywords:
+    - cloudflare
+    - ddns
+    maintainers:
+    - email: alexey@skosyrskiy.com
+      name: Alexey Skosyrskiy
+    name: cloudflare-ddns
+    type: application
+    urls:
+    - https://github.com/askosyrskiy/helm-charts/releases/download/cloudflare-ddns-0.1.0/cloudflare-ddns-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-12-29T03:50:34.672267691Z"
