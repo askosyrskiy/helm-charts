@@ -13,7 +13,7 @@ Source: https://github.com/favonia/cloudflare-ddns
 
 1. Add the repository:
 ```bash
-helm repo add cloudflare-ddns https://raw.githubusercontent.com/askosyrskiy/cloudflare-ddns-helm/main/
+helm repo add askosyrskiy https://askosyrskiy.github.io/helm-charts
 helm repo update
 ```
 
@@ -27,7 +27,7 @@ ip6Provider: "none"  # Set to "none" to disable IPv6 updates
 
 3. Install the chart:
 ```bash
-helm install cloudflare-ddns your-repo/cloudflare-ddns -f my-values.yaml
+helm install cloudflare-ddns askosyrskiy/cloudflare-ddns -f my-values.yaml
 ```
 
 ## Configuration
