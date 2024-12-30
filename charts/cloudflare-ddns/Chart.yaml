@@ -2,12 +2,12 @@ apiVersion: v2
 name: cloudflare-ddns
 description: A Helm chart for Cloudflare DDNS service
 type: application
-version: 1.0.2
-appVersion: "1.0.2"
+version: 1.0.3
+appVersion: "1.0.3"
 maintainers:
   - name: "Alexey Skosyrskiy"
     email: "alexey@skosyrskiy.com"
 keywords:
   - cloudflare
   - ddns
-home: "https://github.com/askosyrskiy/cloudflare-ddns-helm"
+home: "https://github.com/askosyrskiy/helm-charts/"
